@@ -1,0 +1,10 @@
+<table>
+  <tr>
+    <th>Job Title</th>
+    <th>Level</th>
+    <th>Country</th>
+    <th></th>
+    {% for job in results %}
+        <tr><th>{{job.title}}</th><th>{{job.level}}</th><th>{{job.location}}</th><th>Apply</th></tr>
+    {% endfor %}
+</table>

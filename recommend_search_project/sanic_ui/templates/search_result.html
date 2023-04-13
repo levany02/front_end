@@ -1,0 +1,70 @@
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+        $(function() {
+          $('button#apply').on('click', function(e) {
+            e.preventDefault()
+            $.getJSON('/events?eventName='+document.getElementById("apply").innerHTML,
+                function(data) {
+                document.getElementById('apply').innerHTML=data.status
+            });
+            return false;
+          });
+        });
+</script>
+<script type=text/javascript>
+        $(function() {
+          $('button#view').on('click', function(e) {
+            e.preventDefault()
+            $.getJSON('/events?eventName='+document.getElementById("view").innerHTML,
+                function(data) {
+                document.getElementById('view').innerHTML=data.status
+            });
+            return false;
+          });
+        });
+</script>
+<script type=text/javascript>
+        $(function() {
+          $('button#ignore').on('click', function(e) {
+            e.preventDefault()
+            $.getJSON('/events?eventName='+document.getElementById("ignore").innerHTML,
+                function(data) {
+                document.getElementById('ignore').innerHTML=data.status
+            });
+            return false;
+          });
+        });
+</script>
+<script type=text/javascript>
+        $(function() {
+          $('button#dislike').on('click', function(e) {
+            e.preventDefault()
+            $.getJSON('/events?eventName='+document.getElementById("dislike").innerHTML,
+                function(data) {
+                document.getElementById('dislike').innerHTML=data.status
+            });
+            return false;
+          });
+        });
+</script>
+<table>
+  <tr>
+    <th>Job Title</th>
+    <th>Level</th>
+    <th>Country</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    {% for job in results %}
+        <tr>
+            <th>{{job.title}}</th>
+            <th>{{job.level}}</th>
+            <th>{{job.location}}</th>
+            <th><button id="apply">Apply</button></th>
+            <th><button id="view">View</button></th>
+            <th><button id="ignore">Ignore</button></th>
+            <th><button id="dislike">Dislike</button></th>
+        </tr>
+    {% endfor %}
+</table>

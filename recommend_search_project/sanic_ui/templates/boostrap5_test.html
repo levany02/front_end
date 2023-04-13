@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<script>
+    function changeUser(){
+        let userName=prompt("Please enter user name:")
+        if (userName != null || userName != ''){
+            document.getElementById("userid").innerHTML = userName;
+        }
+    }
+</script>
+<script>
+    function events(eventName){
+        let userName=prompt("Please enter user name:"
+        if (userName != null || userName != ''){
+            document.getElementById("userid").innerHTML = userName;
+        }
+    }
+</script>
+<body>
+    <div class="header container-fluid" style="background: linear-gradient(270deg, rgb(0, 90, 255) 0%, rgb(0, 23, 68) 100%);width: 100%;height: 80px;">
+        <div class="row">
+            <div class="col-9">
+                <img src="https://www.vietnamworks.com/assets-page-container/images/vnw_empower_growth_logo_white.png" style="height:80%" align="center">
+            </div>
+            <div class="col-3 pt-3 text-white" style="atext-align:center;">
+                <div id="userid" onclick="changeUser()">Wellcome user: <u>User_Data_Middle_HCM</u></div>
+            </div>
+        </div>
+<!--        <img src="https://www.vietnamworks.com/assets-page-container/images/vnw_empower_growth_logo_white.png" style="height:80%" align="center">-->
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-6 p-3 bg-primary text-white">
+                <input class="form-control" name="keyword" id="keyword-search">
+            </div>
+            <div class="col-sm-2 pt-3 ps-1 pe-1 bg-primary text-white">
+                <select class="form-select">
+                    <option>Ho Chi Minh</option>
+                    <option>Ha Noi</option>
+                    <option>Da Nang</option>
+                    <option>others</option>
+                </select>
+            </div>
+            <div class="col-sm-2 p-3 bg-primary text-white">
+                <select class="form-select">
+                    <option>Leader</option>
+                    <option>Senior</option>
+                    <option>Middle</option>
+                    <option>Junior</option>
+                    <option>Fresher</option>
+                </select>
+            </div>
+            <div class="col-sm-2 p-3 bg-primary text-white">
+                <button type="submit" class="btn btn-light text-dark">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="results container">
+        <h3>Ket qua tim kiem tu khoa: </h3>
+        <div class="list-group ms-10">
+            <a href="#" class="list-group-item list-group-item-action list-group-item-light">
+                <div class="row">
+                    <div class="col-3">
+                        <img src="https://www.vietnamworks.com/_next/image?url=https%3A%2F%2Fimages.vietnamworks.com%2Fpictureofcompany%2F6e%2F10922087.png&w=256&q=75" style="height:100%;width:70%">
+                    </div>
+                    <div class="col-9 p-3 text-white">
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="text-danger">Data Scientist</div>
+                                <div class="text-secondary">Ho Chi Minh</div>
+                                <div class="text-dark">Machine Learning, Tensorflow, Python, Probabilities and Statistic</div>
+                            </div>
+                            <div class="col-3">
+                                <div class="text-danger">$1000-$2000</div>
+                                <div class="text-secondary">apply</div>
+                                <div class="row">
+                                    <span class="col-4 text-dark" onclick=""><i class="fa fa-heart" style="color:black"></i></span>
+                                    <span class="col-4 text-dark"><i class="fa fa-thumbs-down"></i></span>
+                                    <span class="col-4 text-dark">ignore</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,13 +1,30 @@
+import random
+
 from elasticsearch import Elasticsearch, helpers
 from pymongo import MongoClient
+import pandas as pd
 import sys
+import glob
 
 INDEX_NAME = sys.argv[2]
 database = sys.argv[1]
 
 if __name__ == '__main__':
-    mongo = MongoClient()
-    data = list(mongo[database].data.find({}, {"jobId": 1, "title": 1, "location": 1, "category": 1, "skill": 1, "salary": 1, "level": 1, "_id": 0, "image": 1}))
+    # mongo = MongoClient()
+
+    mongo = MongoClient("mongodb://10.122.6.17:27017")
+    df_meta = pd.DataFrame(list(mongo[database]["items"].find()))
+    df_meta["jobId"] = df_meta["_id"]
+    df_meta['title'] = df_meta.categoricalProps.apply(lambda x: x["jobTitle"][0])
+    df_meta['skill'] = df_meta.categoricalProps.apply(lambda x: x["skills"])
+    df_meta['category'] = df_meta.categoricalProps.apply(lambda x: x["industries"])
+    df_meta['location'] = df_meta.categoricalProps.apply(lambda x: x["locations"])
+    df_meta['level'] = df_meta.categoricalProps.apply(lambda x: x["jobLevel"])
+    df_meta['availableDate'] = df_meta.dateProps.apply(lambda x: x["availableDate"])
+
+    data = df_meta[["jobId", "title", "skill", "category", "category", "level", "location", "availableDate"]].to_dict(orient='records')
+
+    # data = list(mongo[database].data.find({}, {"jobId": 1, "title": 1, "location": 1, "category": 1, "skill": 1, "salary": 1, "level": 1, "_id": 0, "image": 1}))
     setting = {
         "settings": {
             "number_of_shards": 1,
@@ -33,8 +50,8 @@ if __name__ == '__main__':
                         "type": "synonym",
                         "lenient": True,
                         "synonyms": [
-                            "Artificial Intelligent => AI, Artificial Intelligent",
-                            "AI => AI, Artificial Intelligent"
+                            "artificial intelligent, ai => ai, artificial intelligent",
+                            "data, du lieu => data, du lieu"
                         ]
                     },
                     "custom_stop_words_filter": {
@@ -169,15 +186,16 @@ if __name__ == '__main__':
     }
     es = Elasticsearch()
     res = es.indices.create(index=INDEX_NAME, body=setting, ignore=400)
-    print(res)
     actions = []
-    for idx, _source in enumerate(data):
+    images = glob.glob("/home/spark/ylv/workplace/front_end/recommend_search_project/sanic_ui/templates/images/*.png")
+    for _source in data:
+        _source["image"] = "/images/" + random.choice(images).split("/")[-1]
         actions.append(
             {
                     "_index": INDEX_NAME,
                     '_op_type': 'index',
                     "_type": "_doc",
-                    "_id": idx,
+                    "_id": _source["jobId"],
                     "_source": _source
                 }
         )

@@ -82,7 +82,7 @@
     <div class="header container-fluid" style="background: linear-gradient(270deg, rgb(0, 90, 255) 0%, rgb(0, 23, 68) 100%);width: 100%;height: 80px;">
         <div class="row">
             <div class="col-9">
-                <img src="https://www.vietnamworks.com/assets-page-container/images/vnw_empower_growth_logo_white.png" style="height:80%" align="center">
+                <img src="/images/vietnamwork.png" style="height:80%" align="center">
             </div>
 <!--            <div class="col-3 pt-3 text-white" style="atext-align:center;">-->
 <!--                <button id="userid" class="btn btn-light" onclick="changeUser()">User_Data_Middle_HCM</button>-->
@@ -137,9 +137,9 @@
                         <div id={{job.jobId}} class="infor row">
                             <div class="col-9">
                                 <div class="apply text-danger" title="view" onclick="behaviors(this)">{{job.title}}</div>
-                                <div class="location text-secondary">{{job.location}}</div>
-                                <div class="level text-secondary">{{job.level}}</div>
-                                <div class="category text-secondary">{{job.category}}</div>
+                                <div class="location text-secondary">{{', '.join(job.location)}}</div>
+                                <div class="level text-secondary">{{', '.join(job.level)}}</div>
+                                <div class="category text-secondary">{{', '.join(job.category)}}</div>
                                 <div class="skill text-dark">{{', '.join(job.skill)}}</div>
                             </div>
                             <div class="col-3">

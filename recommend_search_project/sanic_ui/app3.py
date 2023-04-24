@@ -234,9 +234,9 @@ async def search_result(request):
                          user_model_recs.get(doc["_source"]["jobId"], 0)  + \
                          # item_model_recs.get(doc["_source"]["jobId"], 0) + \
                          content_base_weight["item"].get(doc["_source"]["title"], 0) + \
-                         content_base_weight["category"].get(doc["_source"]["category"], 0) + \
-                         content_base_weight["location"].get(doc["_source"]["location"], 0) + \
-                         content_base_weight["level"].get(doc["_source"]["level"], 0) +\
+                         # content_base_weight["category"].get(doc["_source"]["category"], 0) + \
+                         # content_base_weight["location"].get(doc["_source"]["location"], 0) + \
+                         # content_base_weight["level"].get(doc["_source"]["level"], 0) +\
                    0,
                 "title": doc["_source"]["title"],
                 "jobId": doc["_source"]["jobId"],
@@ -245,10 +245,8 @@ async def search_result(request):
                 "category": doc["_source"]["category"],
                 "location": doc["_source"]["location"],
                 "image": doc["_source"]["image"],
-                "salary": doc["_source"]["salary"]} for doc in data["hits"]["hits"]]
+                "salary": "$1000-$2000"} for doc in data["hits"]["hits"]]
     ranking = sorted(ranking, key=lambda x: x['score'], reverse=True)
-    print(ranking)
-    print(keyword)
     return {"message": f"Results (10/{data['hits']['total']['value']}): ", "results":ranking[:10], "username": username, "keyword": keyword}
 
 
@@ -294,6 +292,7 @@ async def recommend_items(request):
         mongo[MONGO_DATABASE].events.find({"userid": username}, {"_id": 0, "time": 0}).sort("_id", -1).limit(10))
     return {"histories": history, "events": matched_job, "user_recs": user_recs, "item_recs": item_recs}
 
+app.static("/images/", "./templates/images")
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", workers=4, port=8080, debug=True)
